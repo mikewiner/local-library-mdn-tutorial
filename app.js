@@ -6,15 +6,15 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog');
 
 var app = express();
 
 var mongoose = require('mongoose');
-var mongoDB = 'insert_your_database_url_here';
+var mongoDB = 'imongodb+srv://MikeDev:GunmaDev69@cluster0.2yph3.azure.mongodb.net/local_library?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 
 
 // view engine setup
@@ -29,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
